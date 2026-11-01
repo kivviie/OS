@@ -1,6 +1,5 @@
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
 
@@ -20,47 +19,58 @@ int main()
 
     if(pid == 0)
     {
-        // Child process
+        // Child process: Ascending order
         printf("\nChild Process\n");
 
-        for(i = 0; i < n-1; i++)
+        for(i = 0; i < n; i++)
         {
-            for(j = 0; j < n-i-1; j++)
+            for(j = 0; j < n - i - 1; j++)
             {
-                if(a[j] > a[j+1])
+                if(a[j] > a[j + 1])
                 {
                     temp = a[j];
-                    a[j] = a[j+1];
-                    a[j+1] = temp;
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
                 }
             }
         }
 
-        printf("Sorted elements: ");
+        printf("Ascending order: ");
         for(i = 0; i < n; i++)
             printf("%d ", a[i]);
-
-        printf("\nChild process ID: %d\n", getpid());
-        exit(0);
     }
     else if(pid > 0)
     {
-        // Parent process
-        printf("\nParent Process\n");
-        printf("Parent process ID: %d\n", getpid());
-
+        // Parent process: Descending order
         wait(NULL);
 
-        printf("Child process completed.\n");
+        printf("\n\nParent Process\n");
+
+        for(i = 0; i < n; i++)
+        {
+            for(j = 0; j < n - i - 1; j++)
+            {
+                if(a[j] < a[j + 1])
+                {
+                    temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                }
+            }
+        }
+
+        printf("Descending order: ");
+        for(i = 0; i < n; i++)
+            printf("%d ", a[i]);
     }
     else
     {
-        printf("Fork failed!\n");
-        return 1;
+        printf("Fork failed");
     }
 
     return 0;
 }
+
 
 
 Save the program and execute:
