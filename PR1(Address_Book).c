@@ -85,3 +85,12 @@ do
 
     esac
 done
+
+
+
+1. Give execution permission:
+chmod +x addressbook.sh
+
+
+5. Run the program:
+./addressbook.sh
